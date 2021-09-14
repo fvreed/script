@@ -17,24 +17,23 @@ colors = [lg, r, w, cy, ye]
 try:
     import requests
 except ImportError:
-    print(f'{lg}[i] Installing module - requests...{n}')
+    print(f'{lg}[i] Modullar yüklənir...{n}')
     os.system('pip install requests')
 
 def banner():
     import random
     # fancy logo
     b = [
-    '   _____             __',
-    '  /  _  \    _______/  |_____________',
-    ' /  /_\  \  /  ___/\   __\_  __ \__  \\',
-    '/    |    \ \___ \  |  |  |  | \// __ \_',
-    '\____|__  /____  >  |__|  |__|  (____   /',
-    '        \/     \/                     \/'
+    '   _____         .__                   ',
+    '  /  _  \ ___.__.|  |__ _____    ____',
+    '/    |    \___  ||   Y  \/ __ \|   |  \',
+    '\____|__  / ____||___|  (____  /___|  /',
+    '        \/\/          \/     \/     \/ ',
     ]
     for char in b:
         print(f'{random.choice(colors)}{char}{n}')
     #print('=============SON OF GENISYS==============')
-    print(f'   Version: 1.2 | Author: Cryptonian{n}\n')
+    print(f'   Versiya: 1.2 | Sahibi: Ayhan{n}\n')
 
 def clr():
     if os.name == 'nt':
@@ -45,30 +44,29 @@ def clr():
 while True:
     clr()
     banner()
-    print(lg+'[1] Add new accounts'+n)
-    print(lg+'[2] Filter all banned accounts'+n)
-    print(lg+'[3] Delete specific accounts'+n)
-    print(lg+'[4] Update your Astra'+n)
-    print(lg+'[5] Quit'+n)
+    print(lg+'[1] Yeni hesablar əlavə et'+n)
+    print(lg+'[2] Bütün qadağan edilmiş hesabları silin'+n)
+    print(lg+'[3] Xüsusi hesabları silin'+n)
+    print(lg+'[4] Çıxış et'+n)
     a = int(input('\nEnter your choice: '))
     if a == 1:
         new_accs = []
         with open('vars.txt', 'ab') as g:
-            number_to_add = int(input(f'\n{lg} [~] Enter number of accounts to add: {r}'))
+            number_to_add = int(input(f'\n{lg} [~] Əlavə ediləcək hesabların sayını daxil edin: {r}'))
             for i in range(number_to_add):
-                phone_number = str(input(f'\n{lg} [~] Enter Phone Number: {r}'))
+                phone_number = str(input(f'\n{lg} [~] Əlavə ediləcək telefon nömrəsini daxil edin: {r}'))
                 parsed_number = ''.join(phone_number.split())
                 pickle.dump([parsed_number], g)
                 new_accs.append(parsed_number)
-            print(f'\n{lg} [i] Saved all accounts in vars.txt')
+            print(f'\n{lg} [i] Bütün hesablar qeyd edildi!')
             clr()
-            print(f'\n{lg} [*] Logging in from new accounts\n')
+            print(f'\n{lg} [*] Yeni hesablara giriş edilir..\n')
             for number in new_accs:
                 c = TelegramClient(f'sessions/{number}', 3910389 , '86f861352f0ab76a251866059a6adbd6')
                 c.start(number)
-                print(f'{lg}[+] Login successful')
+                print(f'{lg}[+] Giriş uğurludur!')
                 c.disconnect()
-            input(f'\n Press enter to goto main menu...')
+            input(f'\n Ana menyuya qayıtmaq üçün enteri basın...')
 
         g.close()
     elif a == 2:
@@ -82,7 +80,7 @@ while True:
                 break
         h.close()
         if len(accounts) == 0:
-            print(r+'[!] There are no accounts! Please add some and retry')
+            print(r+'[!] Hesab yoxdur! Zəhmət olmasa bir hesab əlavə edin və yenidən cəhd edin.')
             sleep(3)
         else:
             for account in accounts:
@@ -93,13 +91,13 @@ while True:
                     try:
                         client.send_code_request(phone)
                         #client.sign_in(phone, input('[+] Enter the code: '))
-                        print(f'{lg}[+] {phone} is not banned{n}')
+                        print(f'{lg}[+] {phone} ban edilməyib!{n}')
                     except PhoneNumberBannedError:
-                        print(r+str(phone) + ' is banned!'+n)
+                        print(r+str(phone) + ' ban edilib!'+n)
                         banned_accs.append(account)
             if len(banned_accs) == 0:
-                print(lg+'Congrats! No banned accounts')
-                input('\nPress enter to goto main menu...')
+                print(lg+'Təbriklər! Qadağan edilmiş hesab yoxdur')
+                input('\nAna menyuya qayıtmaq üçün enteri basın...')
             else:
                 for m in banned_accs:
                     accounts.remove(m)
@@ -108,8 +106,8 @@ while True:
                         Phone = a[0]
                         pickle.dump([Phone], k)
                 k.close()
-                print(lg+'[i] All banned accounts removed'+n)
-                input('\nPress enter to goto main menu...')
+                print(lg+'[i] Bütün qadağan edilmiş hesablar silindi'+n)
+                input('\nAna menyuya qayıtmaq üçün enteri basın...')
 
     elif a == 3:
         accs = []
@@ -121,11 +119,11 @@ while True:
                 break
         f.close()
         i = 0
-        print(f'{lg}[i] Choose an account to delete\n')
+        print(f'{lg}[i] Silmək üçün bir hesab seçin\n')
         for acc in accs:
             print(f'{lg}[{i}] {acc[0]}{n}')
             i += 1
-        index = int(input(f'\n{lg}[+] Enter a choice: {n}'))
+        index = int(input(f'\n{lg}[+] Seçiminizi edin: {n}'))
         phone = str(accs[index][0])
         session_file = phone + '.session'
         if os.name == 'nt':
@@ -136,11 +134,10 @@ while True:
         f = open('vars.txt', 'wb')
         for account in accs:
             pickle.dump(account, f)
-        print(f'\n{lg}[+] Account Deleted{n}')
-        input(f'\nPress enter to goto main menu...')
+        print(f'\n{lg}[+] Hesab silindi{n}')
+        input(f'\nAna menyuya qayıtmaq üçün enteri basın...')
         f.close()
-    elif a == 4:
-        # thanks to github.com/th3unkn0n for the snippet below
+    elif a == 9:
         print(f'\n{lg}[i] Checking for updates...')
         try:
             # https://raw.githubusercontent.com/Cryptonian007/Astra/main/version.txt
@@ -171,7 +168,7 @@ while True:
         else:
             print(f'{lg}[i] Your Astra is already up to date')
             input('Press enter to goto main menu...')
-    elif a == 5:
+    elif a == 4:
         clr()
         banner()
         exit()
