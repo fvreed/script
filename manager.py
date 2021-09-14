@@ -48,7 +48,7 @@ while True:
     print(lg+'[2] Bütün qadağan edilmiş hesabları silin'+n)
     print(lg+'[3] Xüsusi hesabları silin'+n)
     print(lg+'[4] Çıxış et'+n)
-    a = int(input('\nEnter your choice: '))
+    a = int(input('\nSeçiminizi edin: '))
     if a == 1:
         new_accs = []
         with open('vars.txt', 'ab') as g:
