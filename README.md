@@ -2,7 +2,7 @@
 
 
 * `git clone https://github.com/fvreed/Azerbaijan`
-* `cd AzerBaijan`
+* `cd Azerbaijan`
 * `pip install -r requirements.txt`
 
 ### İstifadəsi:
