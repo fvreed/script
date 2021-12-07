@@ -1,8 +1,8 @@
 ### Qurulum:
 
 
-* `git clone https://github.com/fvreed/Azerbaijan`
-* `cd Azerbaijan`
+* `git clone https://github.com/fvreed/script`
+* `cd script`
 * `pip install -r requirements.txt`
 
 ### İstifadəsi:
